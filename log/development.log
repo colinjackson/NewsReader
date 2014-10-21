@@ -7927,3 +7927,29 @@ Processing by Api::EntriesController#index as JSON
   [1m[36mFeed Load (0.8ms)[0m  [1mSELECT "feeds".* FROM "feeds" WHERE "feeds"."id" = $1 LIMIT 1[0m  [["id", "7"]]
   [1m[35mEntry Load (1.5ms)[0m  SELECT "entries".* FROM "entries" WHERE "entries"."feed_id" = $1  [["feed_id", 7]]
 Completed 200 OK in 11ms (Views: 6.5ms | ActiveRecord: 2.3ms)
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateUsers (20141021195736)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (6.0ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "username" character varying(255) NOT NULL, "password_digest" character varying(255) NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (1.3ms)[0m  CREATE INDEX "index_users_on_username" ON "users" ("username")
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20141021195736"]]
+  [1m[35m (1.4ms)[0m  COMMIT
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.5ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+Migrating to CreateUsers (20141021195736)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (12.6ms)[0m  DROP INDEX "index_users_on_username"
+  [1m[36m (1.8ms)[0m  [1mDROP TABLE "users"[0m
+  [1m[35mSQL (1.0ms)[0m  DELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = '20141021195736'
+  [1m[36m (2.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.3ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateUsers (20141021195736)
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36m (6.4ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "username" character varying(255) NOT NULL, "password_digest" character varying(255) NOT NULL, "session_token" character varying(255), "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (1.4ms)[0m  CREATE INDEX "index_users_on_username" ON "users" ("username")
+  [1m[36m (1.0ms)[0m  [1mCREATE UNIQUE INDEX "index_users_on_session_token" ON "users" ("session_token")[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20141021195736"]]
+  [1m[36m (1.0ms)[0m  [1mCOMMIT[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.3ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
