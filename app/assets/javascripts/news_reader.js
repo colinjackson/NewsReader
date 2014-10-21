@@ -4,6 +4,9 @@ window.NewsReader = {
   Views: {},
   Routers: {},
   initialize: function() {
+    new NewsReader.Views.SessionView({
+      el = $("#session-status")
+    });
     new NewsReader.Routers.SiteRouter();
     Backbone.history.start();
   }
