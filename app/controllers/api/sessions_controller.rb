@@ -1,35 +1,31 @@
 class SessionsController < ApplicationController
   layout :session_layout
 
-  def new
+  before_filter :ensure_signed_out, only: :new, :create
+  before_filter :ensure_signed_in, only: :destroy
 
+  def new
+    @user = User.new()
+    render :new
   end
 
-  # def create
-  #   user = User.find_by_credentials(credentials_params)
-  #   if user
-  #     sign_in!(user)
-  #     render json: user
-  #   else
-  #     render json: { error: "Invalid username and password" }, status: :forbidden
-  #   end
-  # end
-  #
-  # def show
-  #   if current_user
-  #     render json: current_user
-  #   else
-  #     render json: { error: "There's no user here!" }, status: :not_found
-  #   end
-  # end
+  def create
+    user = User.find_by_credentials(credentials_params)
+    if user
+      sign_in!(user)
+      redirect_to root_url
+    else
+      flash.now[:errors] = ["Invalid username and password! Try again!"]
+      render :new
+    end
+  end
 
   def destroy
     if current_user
-      signed_out_user = current_user
       sign_out!
-      redirect_to api_session_url
+      redirect_to new_session_url
     else
-      render json: { error: "Not logged in" }, status: :not_found
+      redirect_to back
     end
   end
 
@@ -39,6 +35,6 @@ class SessionsController < ApplicationController
   end
 
   def session_layout
-    signed_in? ? application.html.erb : login.html.erb
+    signed_in? ? "application" : "login"
   end
 end

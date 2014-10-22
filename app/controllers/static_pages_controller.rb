@@ -1,5 +1,6 @@
 class StaticPagesController < ApplicationController
-  def index
+  before_filter :ensure_signed_in
 
+  def index
   end
 end
